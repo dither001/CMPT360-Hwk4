@@ -10,20 +10,28 @@ class sphere{
     }
 
     hit(r, rec) {
-        var o = subtract(r.origin(), this.center);
+        var oc = subtract(r.origin(), this.center);
         var d = r.direction();
 
         var a = dot(d, d);
-        var b = 2.0 * dot(o, d);
-        var c = dot(o,o) - this.radius*this.radius;
-        var discriminant = b*b - 4*a*c;
+        var b = dot(oc, d);
+        var c = dot(oc, oc) - this.radius*this.radius;
+        var discriminant = b*b - a*c;
 
-        if (discriminant < this.radius/2) {
-            let temp = -b - Math.sqrt(discriminant)/(a);
+        if (a == 0)
+            a = 0.00001;
+
+        if (discriminant >= 0) {
+            var temp;
+
+            if (discriminant > 0.00001)
+                temp = -1 * b - Math.sqrt(discriminant) / 2.0 * a;
+            else
+                temp = -1 * b + Math.sqrt(discriminant) / 2.0 * a;
 
             rec.setT(temp);
             rec.setP(r.pointAt(temp));
-            rec.setNormal(subtract(rec.getP(), this.center));
+            rec.setNormal(subtract(rec.getP(), this.center));    
 
             return true;
         }

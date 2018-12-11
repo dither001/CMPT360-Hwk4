@@ -52,13 +52,13 @@ function main() {
     var nx = 500;
     var ny = 500;
     // Initialize a sphere using center (0,0,-1) and radius 0.5.
-    var s = new sphere(vec2(0.0,0.0,-1.0), 0.5);
+    var s = new sphere(vec2(0,0,-1), 0.5);
     // Your code goes here:
 
-    var bottomLeft = vec2(-2.0,-1.0,-1.0);
-    var horizontal = vec2(4.0,0.0,0.0);
-    var vertical = vec2(0.0,2.0,0.0);
-    var origin = vec2(0.0,0.0,0.0);
+    var bottomLeft = vec2(-1,-1,-1);
+    var horizontal = vec2(4,0,0);
+    var vertical = vec2(0,2,0);
+    var origin = vec2(0,0,0);
 
     for (var j = (ny - 1); j >= 0; j--) {
         for (var i = 0; i < nx; i++) {
@@ -80,15 +80,13 @@ function main() {
 function colors(r, s){
     var rec = new hit_record();
     // Your code goes here:
-    // if hit the sphere: call s.hit(); return normal 
-    // else: return background
 
     if (s.hit(r, rec)){
         var n = rec.getNormal();
         return scale(0.5, vec3(n[0]+1, n[1]+1, 1.5));
     }
 
-    let t = 0.5*(r.direction()[1] + 1.0);
+    let t = 0.5 * (r.direction()[1] + 1.0);
     return mix(vec3(1.0, 1.0, 1.0), vec3(0.5, 0.7, 1.0), t);
 }
 
