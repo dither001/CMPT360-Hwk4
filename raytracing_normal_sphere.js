@@ -82,13 +82,13 @@ function colors(r, s){
     // Your code goes here:
     // if hit the sphere: call s.hit(); return normal 
     // else: return background
-    let t = 0.5*(r.direction()[1] + 1.0);
 
     if (s.hit(r, rec)){
-        var n = subtract(rec.getNormal(), r.pointAt(t));
+        var n = rec.getNormal();
         return scale(0.5, vec3(n[0]+1, n[1]+1, 1.5));
     }
 
+    let t = 0.5*(r.direction()[1] + 1.0);
     return mix(vec3(1.0, 1.0, 1.0), vec3(0.5, 0.7, 1.0), t);
 }
 
